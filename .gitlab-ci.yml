@@ -36,5 +36,5 @@ deployTest:
     - hostname
     - mkdir App_Offline
     - echo "App offline for maintenance" > .\App_Offline\App_Offline.htm
-    - ./myrobo.bat .\App_Offline \\tstsrvstub01\d$\Builds\MockServicesUI\src\
-    - ./myrobo.bat .\dist \\tstsrvstub01\d$\Builds\MockServicesUI\src
+    - ./myrobo.bat .\App_Offline \\tstsrvstub01\d$\Builds\CapacityManagerApi\src\
+    - ./myrobo.bat .\dist \\tstsrvstub01\d$\Builds\CapacityManagerApi\src
