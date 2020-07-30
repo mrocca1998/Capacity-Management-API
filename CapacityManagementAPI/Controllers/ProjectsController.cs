@@ -2,18 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using CapacityManagementAPI.Models;
-using Microsoft.AspNetCore.Identity;
-using System.Runtime.InteropServices.ComTypes;
-using System.Threading;
 using Newtonsoft.Json;
 using CapacityManagementAPI.Services;
-using Microsoft.CodeAnalysis;
 using Project = CapacityManagementAPI.Models.Project;
-using AutoMapper;
 
 namespace CapacityManagementAPI.Controllers
 {
@@ -76,49 +70,31 @@ namespace CapacityManagementAPI.Controllers
             return project;
         }
 
-      
-
         //api/projects/duration/id
         [HttpGet("Duration/{id}")]
         public async Task<ActionResult<string>> GetProjectDuration(int id)
         {
-            var project = _context.Projects.Include(p => p.Allocations).Where(p => p.Id == id).FirstOrDefault();
+            var project = _context.Projects.Include(p => p.Allocations).FirstOrDefault(p => p.Id == id);
 
             if (project == null)
             {
                 return NotFound();
             }
 
-            DateTime baEndDate = this.projectRepo.GetEndDate((DateTime)project.StartDate, "BA", Convert.ToDouble(project.BaPoints), project.Allocations);
-            DateTime qaEndDate = this.projectRepo.GetEndDate((DateTime)project.StartDate, "QA", Convert.ToDouble(project.QaPoints), project.Allocations);
-            DateTime devEndDate = this.projectRepo.GetEndDate((DateTime)project.StartDate, "Dev", Convert.ToDouble(project.DevPoints), project.Allocations);
-            DateTime projectEndDate = new[] { baEndDate, qaEndDate, devEndDate }.Max();
+            var baEndDate = projectRepo.GetEndDate((DateTime)project.StartDate, "BA", Convert.ToDouble(project.BaPoints), project.Allocations);
+            var qaEndDate = projectRepo.GetEndDate((DateTime)project.StartDate, "QA", Convert.ToDouble(project.QaPoints), project.Allocations);
+            var devEndDate = projectRepo.GetEndDate((DateTime)project.StartDate, "Dev", Convert.ToDouble(project.DevPoints), project.Allocations);
+            var projectEndDate = new[] { baEndDate, qaEndDate, devEndDate }.Max();
 
-
-            Dictionary<string, DateTime> points = new Dictionary<string, DateTime>
+            var points = new Dictionary<string, DateTime>
             {
                 { "baEndDate", baEndDate },
                 { "qaEndDate", qaEndDate },
                 { "devEndDate", devEndDate },
                 { "projectEndDate", projectEndDate }
             };
-            string dates = JsonConvert.SerializeObject(points, Formatting.Indented);
+            var dates = JsonConvert.SerializeObject(points, Formatting.Indented);
             return dates;
-        }
-
-        // GET: api/projects/duration
-        [HttpGet("Duration")]
-        public async Task<ActionResult<string>> GetProjectDurations()
-        {
-            
-            var Projects = await _context.Projects.ToListAsync();
-            ProjectData[] durations = new ProjectData[Projects.Count];
-            for (int runs = 0; runs < Projects.Count; runs++)
-            {
-                durations[runs] = new ProjectData(Projects[runs]);                    
-            }
-            string projectData = JsonConvert.SerializeObject(durations, Formatting.Indented);
-            return projectData;
         }
 
         // PUT: api/Projects/5
@@ -137,7 +113,7 @@ namespace CapacityManagementAPI.Controllers
 
             if (project.EndDate.HasValue && DateTime.Compare((DateTime)project.StartDate, (DateTime)project.EndDate) > 0)
             {
-                throw new System.ArgumentException("Entry error: Project start date is after the end date", "original");
+                throw new ArgumentException("Entry error: Project start date is after the end date", "original");
             }
 
             _context.Entry(project).State = EntityState.Modified;
@@ -152,10 +128,8 @@ namespace CapacityManagementAPI.Controllers
                 {
                     return NotFound();
                 }
-                else
-                {
-                    throw;
-                }
+
+                throw;
             }
 
             return NoContent();
@@ -169,7 +143,7 @@ namespace CapacityManagementAPI.Controllers
         {
             if (project.EndDate.HasValue && DateTime.Compare((DateTime)project.StartDate, (DateTime)project.EndDate) > 0)
             {
-                throw new System.ArgumentException("Entry error: Project start date is after the end date", "original");
+                throw new ArgumentException("Entry error: Project start date is after the end date", "original");
             }
             _context.Projects.Add(project);
             await _context.SaveChangesAsync();
