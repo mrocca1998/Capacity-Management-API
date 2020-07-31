@@ -48,13 +48,7 @@ namespace CapacityManagementAPI
             {
                 app.UseDeveloperExceptionPage();
             }
-
-            app.UseHttpsRedirection();
-
-            app.UseRouting();
-
-            app.UseCors();
-
+            
             // Enable middleware to serve generated Swagger as a JSON endpoint.
             app.UseSwagger();
 
@@ -65,12 +59,9 @@ namespace CapacityManagementAPI
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "Capacity Management API");
             });
 
-            app.UseAuthorization();
-
-            app.UseEndpoints(endpoints =>
-            {
-                endpoints.MapControllers();
-            });
+            app.UseRouting();
+            app.UseCors();
+            app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
         }
     }
 }
