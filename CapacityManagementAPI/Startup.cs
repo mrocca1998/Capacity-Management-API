@@ -52,7 +52,8 @@ namespace CapacityManagementAPI
             // specifying the Swagger JSON endpoint.
             app.UseSwaggerUI(c =>
             {
-                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Capacity Management API");
+                c.SwaggerEndpoint("./swagger/v1/swagger.json", "Capacity Management API");
+                c.RoutePrefix = "";
             });
 
             app.UseRouting();
