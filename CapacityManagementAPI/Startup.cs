@@ -32,11 +32,7 @@ namespace CapacityManagementAPI
             });
 
             services.AddSwaggerGen();
-
-            services.AddMvc(option => option.EnableEndpointRouting = false)
-                .SetCompatibilityVersion(CompatibilityVersion.Version_3_0)
-                .AddNewtonsoftJson(opt => opt.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore);
-
+            services.AddControllers().AddNewtonsoftJson();
             services.AddDbContext<capManContext>(options =>
                     options.UseSqlServer("Server=.\\SQLEXPRESS;Initial Catalog=CapacityManager;Integrated Security=True;"));
         }
