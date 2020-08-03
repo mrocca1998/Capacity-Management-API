@@ -1,0 +1,40 @@
+variables:
+  GIT_SSL_NO_VERIFY: "true" # skips cert check
+  ErrorActionPreference: STOP # powershell errors will stop pipeline
+  BUILD_VERSION: $CI_COMMIT_SHORT_SHA
+
+stages: 
+  - build
+  - deploy 
+
+build_app: 
+  only: 
+    - master
+  image: mcr.microsoft.com/dotnet/core/sdk:3.1
+  script: 
+    - curl -sL https://deb.nodesource.com/setup_12.x | bash
+    - apt-get install -y nodejs
+    - dotnet build -c Release --source http://nuget.erieinsurance.com/Daily/api/v2 --source https://api.nuget.org/v3/index.json
+    - dotnet publish -c Release -o ./dist
+  stage: build
+  artifacts:
+    paths:
+    - ./dist/*
+    expire_in: 1 day
+  tags:
+    - docker
+    - linux
+
+deployTest:
+  stage: deploy
+  only: 
+    refs:
+      - master
+  tags:
+    - svc_np_glbldr_stub01
+  script:
+    - hostname
+    - mkdir App_Offline
+    - echo "App offline for maintenance" > .\App_Offline\App_Offline.htm
+    - ./myrobo.bat .\App_Offline \\tstsrvstub01\d$\Builds\CapacityManagerApi\src\
+    - ./myrobo.bat .\dist \\tstsrvstub01\d$\Builds\CapacityManagerApi\src

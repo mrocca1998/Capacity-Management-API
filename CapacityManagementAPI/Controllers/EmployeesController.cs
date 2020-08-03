@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using CapacityManagementAPI.Models;
-using Microsoft.AspNetCore.Cors;
 
 namespace CapacityManagementAPI.Controllers
 {
@@ -45,7 +42,7 @@ namespace CapacityManagementAPI.Controllers
         [HttpGet("Details/{id}")]
         public async Task<ActionResult<Employee>> GetEmployeeDetails(int id)
         {
-            var employee = _context.Employees.Include(e => e.Allocations).Where(e => e.Id == id).FirstOrDefault();
+            var employee = _context.Employees.Include(e => e.Allocations).FirstOrDefault(e => e.Id == id);
 
             if (employee == null)
             {
@@ -89,7 +86,7 @@ namespace CapacityManagementAPI.Controllers
         [HttpPost]
         public async Task<ActionResult<Employee>> PostEmployee(Employee employee)
         {
-            _context.Employees.Add(employee);
+            await _context.Employees.AddAsync(employee);
             await _context.SaveChangesAsync();
 
             return CreatedAtAction("GetEmployee", new { id = employee.Id }, employee);

@@ -1,10 +1,9 @@
 {
   "version": 2,
-  "dgSpecHash": "gQJIhokjac8R6JID8RTEnfkki7SHsYUV1QP+dI5HPVw/Np8ZmEMEXf0u75M6WJOhlC2LrvWJJhrLMLYrYVK2lg==",
+  "dgSpecHash": "XzzQ0WsvbqYynQkTv4WPS7z1LZPPTD97Pij2/Uuhcrut/GYPS+qutjZpa9B53wcjqIUqOGdI+zbODDJxoSIiPA==",
   "success": true,
   "projectFilePath": "C:\\Users\\mrocc\\source\\repos\\CapacityManagementMock\\CapacityManagementAPI\\CapacityManagementAPI.csproj",
   "expectedPackageFiles": [
-    "C:\\Users\\mrocc\\.nuget\\packages\\automapper\\10.0.0\\automapper.10.0.0.nupkg.sha512",
     "C:\\Users\\mrocc\\.nuget\\packages\\bricelam.entityframeworkcore.pluralizer\\1.0.0\\bricelam.entityframeworkcore.pluralizer.1.0.0.nupkg.sha512",
     "C:\\Users\\mrocc\\.nuget\\packages\\microsoft.aspnetcore.cors\\2.2.0\\microsoft.aspnetcore.cors.2.2.0.nupkg.sha512",
     "C:\\Users\\mrocc\\.nuget\\packages\\microsoft.aspnetcore.html.abstractions\\2.2.0\\microsoft.aspnetcore.html.abstractions.2.2.0.nupkg.sha512",
@@ -139,7 +138,7 @@
     "C:\\Users\\mrocc\\.nuget\\packages\\system.objectmodel\\4.3.0\\system.objectmodel.4.3.0.nupkg.sha512",
     "C:\\Users\\mrocc\\.nuget\\packages\\system.private.datacontractserialization\\4.3.0\\system.private.datacontractserialization.4.3.0.nupkg.sha512",
     "C:\\Users\\mrocc\\.nuget\\packages\\system.reflection\\4.3.0\\system.reflection.4.3.0.nupkg.sha512",
-    "C:\\Users\\mrocc\\.nuget\\packages\\system.reflection.emit\\4.7.0\\system.reflection.emit.4.7.0.nupkg.sha512",
+    "C:\\Users\\mrocc\\.nuget\\packages\\system.reflection.emit\\4.3.0\\system.reflection.emit.4.3.0.nupkg.sha512",
     "C:\\Users\\mrocc\\.nuget\\packages\\system.reflection.emit.ilgeneration\\4.3.0\\system.reflection.emit.ilgeneration.4.3.0.nupkg.sha512",
     "C:\\Users\\mrocc\\.nuget\\packages\\system.reflection.emit.lightweight\\4.3.0\\system.reflection.emit.lightweight.4.3.0.nupkg.sha512",
     "C:\\Users\\mrocc\\.nuget\\packages\\system.reflection.extensions\\4.3.0\\system.reflection.extensions.4.3.0.nupkg.sha512",
