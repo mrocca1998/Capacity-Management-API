@@ -7,7 +7,7 @@ namespace CapacityManagementAPI.Services
 {
     public class ProjectRepo
     {
-        public double getPoints(double allocation, double weight)
+        public double getPoints(double allocation, double weight, string role)
         {
             allocation = allocation / 100;
             var hours = .5;
@@ -20,21 +20,62 @@ namespace CapacityManagementAPI.Services
             {
                 hours = 6 * (allocation / 1);
             }
-            if (weight == .25)
+            if (role.Equals("BA"))
             {
-                pts = hours / 65;
+                if (weight == .25)
+                {
+                    pts = hours / 63;
+                }
+                else if (weight == .5)
+                {
+                    pts = hours / 28;
+                }
+                else if (weight == .75)
+                {
+                    pts = hours / 13;
+                }
+                else
+                {
+                    pts = hours / 6;
+                }
             }
-            else if (weight == .5)
+            else if (role.Equals("QA"))
             {
-                pts = hours / 30;
+                if (weight == .25)
+                {
+                    pts = hours / 63;
+                }
+                else if (weight == .5)
+                {
+                    pts = hours / 38;
+                }
+                else if (weight == .75)
+                {
+                    pts = hours / 19;
+                }
+                else
+                {
+                    pts = hours / 11;
+                }
             }
-            else if (weight == .75)
+            else 
             {
-                pts = hours / 16;
-            }
-            else
-            {
-                pts = hours / 8;
+                if (weight == .25)
+                {
+                    pts = hours / 63;
+                }
+                else if (weight == .5)
+                {
+                    pts = hours / 33;
+                }
+                else if (weight == .75)
+                {
+                    pts = hours / 17;
+                }
+                else
+                {
+                    pts = hours / 9;
+                }
             }
             return pts;
         }
@@ -80,7 +121,7 @@ namespace CapacityManagementAPI.Services
                         {
                             //there are people allocated
                             noAl = false;
-                            remPts -= getPoints((double)allocation.Allocation1, (double)allocation.WorkWeight);
+                            remPts -= getPoints((double)allocation.Allocation1, (double)allocation.WorkWeight, allocation.Role);
                         }
                     }
                     //check if there were no allocation with the correct role this current day

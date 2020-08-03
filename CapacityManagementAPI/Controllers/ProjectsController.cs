@@ -123,11 +123,11 @@ namespace CapacityManagementAPI.Controllers
 
         // PUT: api/Projects/5
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutProject(int id,[FromBody]Project project)
+        public async Task<String> PutProject(int id,[FromBody]Project project)
         {
             if (id != project.Id)
             {
-                return BadRequest();
+                //return BadRequest();
             }
 
             if (project is null)
@@ -137,7 +137,8 @@ namespace CapacityManagementAPI.Controllers
 
             if (project.EndDate.HasValue && DateTime.Compare((DateTime)project.StartDate, (DateTime)project.EndDate) > 0)
             {
-                throw new System.ArgumentException("Entry error: Project start date is after the end date", "original");
+                string message = "Entry error: Project start date is after the end date";
+                return message;
             }
 
             _context.Entry(project).State = EntityState.Modified;
@@ -150,7 +151,7 @@ namespace CapacityManagementAPI.Controllers
             {
                 if (!ProjectExists(id))
                 {
-                    return NotFound();
+                    return "";
                 }
                 else
                 {
@@ -158,23 +159,23 @@ namespace CapacityManagementAPI.Controllers
                 }
             }
 
-            return NoContent();
+            return "";
         }
 
 
 
         // POST: api/Projects
         [HttpPost]
-        public async Task<ActionResult<Project>> PostProject(Project project)
+        public async Task<ActionResult<string>> PostProject(Project project)
         {
             if (project.EndDate.HasValue && DateTime.Compare((DateTime)project.StartDate, (DateTime)project.EndDate) > 0)
             {
-                throw new System.ArgumentException("Entry error: Project start date is after the end date", "original");
+                string message = "Entry error: Project start date is after the end date";
+                return message;
             }
             _context.Projects.Add(project);
             await _context.SaveChangesAsync();
-
-            return CreatedAtAction("GetProject", new { id = project.Id }, project);
+            return "";
         }
 
         // DELETE: api/Projects/5

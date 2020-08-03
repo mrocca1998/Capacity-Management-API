@@ -44,7 +44,7 @@ namespace CapacityManagementAPI
                 .AddNewtonsoftJson(opt => opt.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore);
 
             services.AddDbContext<capManContext>(options =>
-                    options.UseSqlServer("Server=.\\TEW_SQLEXPRESS;Initial Catalog=capMan2;Integrated Security=True;"));
+                options.UseSqlServer(@"Data Source=DESKTOP-2JGEF2F\TEW_SQLEXPRESS;Initial Catalog=capMan2;Integrated Security=True"));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
