@@ -8,7 +8,7 @@ namespace CapacityManagementAPI.Models
 
         public Project()
         {
-            Allocations = new HashSet<Allocation>();
+            Allocations = new List<Allocation>();
         }
 
         public int Id { get; set; }
@@ -25,6 +25,7 @@ namespace CapacityManagementAPI.Models
         public DateTime? calcEndDate { get; set; }
 
         public bool? isShowing { get; set; }
+
 
         public virtual ICollection<Allocation> Allocations { get; set; }
     }

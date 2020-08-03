@@ -51,12 +51,14 @@ namespace CapacityManagementAPI.Models
                 entity.HasOne(d => d.Employee)
                     .WithMany(p => p.Allocations)
                     .HasForeignKey(d => d.EmployeeId)
-                    .HasConstraintName("FK__Allocatio__Emplo__15502E78");
+                    .HasConstraintName("FK__Allocatio__Emplo__15502E78")
+                    .OnDelete(DeleteBehavior.Cascade);
 
                 entity.HasOne(d => d.Project)
                     .WithMany(p => p.Allocations)
                     .HasForeignKey(d => d.ProjectId)
-                    .HasConstraintName("FK__Allocatio__Proje__145C0A3F");
+                    .HasConstraintName("FK__Allocatio__Proje__145C0A3F")
+                    .OnDelete(DeleteBehavior.Cascade);
             });
 
             modelBuilder.Entity<Employee>(entity =>
