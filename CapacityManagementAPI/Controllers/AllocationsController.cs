@@ -2,11 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using CapacityManagementAPI.Models;
-using Microsoft.VisualBasic;
 
 namespace CapacityManagementAPI.Controllers
 {
@@ -45,7 +43,7 @@ namespace CapacityManagementAPI.Controllers
         [HttpGet("Details/{id}")]
         public async Task<ActionResult<Allocation>> GetAllocationDetails(int id)
         {
-            var allocation =  _context.Allocations.Include(al => al.Employee).Include(al => al.Project).Where(al => al.Id == id).FirstOrDefault();
+            var allocation =  _context.Allocations.Include(al => al.Employee).Include(al => al.Project).FirstOrDefault(al => al.Id == id);
 
             if (allocation == null)
             {
@@ -67,8 +65,16 @@ namespace CapacityManagementAPI.Controllers
                 return BadRequest();
             }
 
+            if (!allocation.EndDate.HasValue)
+            {
+                allocation.EndDate = allocation.StartDate;
+            }
 
 
+            if (DateTime.Compare((DateTime)allocation.StartDate, (DateTime)allocation.EndDate) > 0)
+            {
+                throw new ArgumentException("Entry error: Project start date is after the end date", "original");
+            }
 
             _context.Entry(allocation).State = EntityState.Modified;
 
