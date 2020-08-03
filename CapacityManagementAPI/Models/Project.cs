@@ -26,7 +26,6 @@ namespace CapacityManagementAPI.Models
 
         public bool? isShowing { get; set; }
 
-
         public virtual ICollection<Allocation> Allocations { get; set; }
     }
 }

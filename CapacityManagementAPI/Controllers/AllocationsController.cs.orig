@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using CapacityManagementAPI.Models;
+using Microsoft.VisualBasic;
 
 namespace CapacityManagementAPI.Controllers
 {
@@ -65,16 +66,15 @@ namespace CapacityManagementAPI.Controllers
                 return BadRequest();
             }
 
-            if (!allocation.EndDate.HasValue)
-            {
-                allocation.EndDate = allocation.StartDate;
-            }
 
+<<<<<<< HEAD
 
+=======
             if (DateTime.Compare((DateTime)allocation.StartDate, (DateTime)allocation.EndDate) > 0)
             {
                 throw new ArgumentException("Entry error: Project start date is after the end date", "original");
             }
+>>>>>>> 39df27f4bc5f1cd7a79c9fb07f56f51172223083
 
             _context.Entry(allocation).State = EntityState.Modified;
 
@@ -108,6 +108,7 @@ namespace CapacityManagementAPI.Controllers
             }
             if (DateTime.Compare((DateTime)allocation.StartDate, (DateTime)allocation.EndDate) > 0)
             {
+<<<<<<< HEAD
                 string message = "Entry error: Allocation start date is after the end date";
                 return message;
             }
@@ -140,6 +141,9 @@ namespace CapacityManagementAPI.Controllers
                 }
 
                 date = date.AddMonths(1);
+=======
+                throw new ArgumentException("Entry error: Project start date is after the end date", "original");
+>>>>>>> 39df27f4bc5f1cd7a79c9fb07f56f51172223083
             }
 
             //check for double allocation

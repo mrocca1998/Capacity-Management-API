@@ -73,7 +73,7 @@ namespace CapacityManagementAPI.Controllers
 
             if (DateTime.Compare((DateTime)allocation.StartDate, (DateTime)allocation.EndDate) > 0)
             {
-                throw new ArgumentException("Entry error: Project start date is after the end date", "original");
+                return "Entry error: Project start date is after the end date";
             }
 
             _context.Entry(allocation).State = EntityState.Modified;
