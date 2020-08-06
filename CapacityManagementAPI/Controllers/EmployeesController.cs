@@ -22,7 +22,7 @@ namespace CapacityManagementAPI.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Employee>>> GetEmployees()
         {
-            return await _context.Employees.ToListAsync();
+            return await _context.Employees.OrderBy(e => e.name).ToListAsync();
         }
 
         // GET: api/Employees/5
