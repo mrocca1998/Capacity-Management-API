@@ -61,7 +61,7 @@ namespace CapacityManagementAPI.Controllers
                 return "";
             }
 
-            //if (_context.Employees.Any(e => e.name == employee.name && e.Id != id))
+            if (_context.Employees.Any(e => (e.name == employee.name && e.Id != id)))
             {
                 return "There already exists an employee with that name. Enter a unique name.";
             }
