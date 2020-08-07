@@ -54,11 +54,16 @@ namespace CapacityManagementAPI.Controllers
 
         // PUT: api/Employees/5
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutEmployee(int id, Employee employee)
+        public async Task<string> PutEmployee(int id, Employee employee)
         {
             if (id != employee.Id)
             {
-                return BadRequest();
+                return "";
+            }
+
+            //if (_context.Employees.Any(e => e.name == employee.name && e.Id != id))
+            {
+                return "There already exists an employee with that name. Enter a unique name.";
             }
 
             _context.Entry(employee).State = EntityState.Modified;
@@ -71,7 +76,7 @@ namespace CapacityManagementAPI.Controllers
             {
                 if (!EmployeeExists(id))
                 {
-                    return NotFound();
+                    return "";
                 }
                 else
                 {
@@ -79,17 +84,22 @@ namespace CapacityManagementAPI.Controllers
                 }
             }
 
-            return NoContent();
+            return "";
         }
 
         // POST: api/Employees
         [HttpPost]
-        public async Task<ActionResult<Employee>> PostEmployee(Employee employee)
+        public async Task<ActionResult<string>> PostEmployee(Employee employee)
         {
+            if (_context.Employees.Any(e => e.name == employee.name))
+            {
+                return "There already exists an employee with that name. Enter a unique name.";
+            }
+
             await _context.Employees.AddAsync(employee);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetEmployee", new { id = employee.Id }, employee);
+            return "";
         }
 
         // DELETE: api/Employees/5

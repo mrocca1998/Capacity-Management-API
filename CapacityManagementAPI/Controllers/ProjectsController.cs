@@ -111,6 +111,21 @@ namespace CapacityManagementAPI.Controllers
                 throw new ArgumentNullException(nameof(project));
             }
 
+            if (project.BaPoints > project.TotalPoints)
+            {
+                return "Entry Error: BA points is greater than total project points.";
+            }
+
+            if (project.QaPoints > project.TotalPoints)
+            {
+                return "Entry Error: QA points is greater than total project points.";
+            }
+
+            if (project.DevPoints > project.TotalPoints)
+            {
+                return "Entry Error: Developer points is greater than total project points.";
+            }
+
             if (project.EndDate.HasValue && DateTime.Compare((DateTime)project.StartDate, (DateTime)project.EndDate) > 0)
             {
                 string message = "Entry error: Project start date is after the end date";
@@ -144,11 +159,27 @@ namespace CapacityManagementAPI.Controllers
         [HttpPost]
         public async Task<ActionResult<string>> PostProject(Project project)
         {
+            if (project.BaPoints > project.TotalPoints)
+            {
+                return "Entry Error: BA points is greater than total project points.";
+            }
+
+            if (project.QaPoints > project.TotalPoints)
+            {
+                return "Entry Error: QA points is greater than total project points.";
+            }
+
+            if (project.DevPoints > project.TotalPoints)
+            {
+                return "Entry Error: Developer points is greater than total project points.";
+            }
+
             if (project.EndDate.HasValue && DateTime.Compare((DateTime)project.StartDate, (DateTime)project.EndDate) > 0)
             {
                 string message = "Entry error: Project start date is after the end date";
                 return message;
             }
+
             _context.Projects.Add(project);
             await _context.SaveChangesAsync();
             return "";
