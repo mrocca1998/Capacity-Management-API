@@ -52,6 +52,9 @@ namespace CapacityManagementAPI.Migrations
                     b.Property<double?>("WorkWeight")
                         .HasColumnType("float");
 
+                    b.Property<bool>("isUpdate")
+                        .HasColumnType("bit");
+
                     b.HasKey("Id");
 
                     b.HasIndex("EmployeeId");
@@ -122,7 +125,7 @@ namespace CapacityManagementAPI.Migrations
                     b.Property<DateTime?>("devEndDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<bool?>("isShowing")
+                    b.Property<bool?>("isUpdate")
                         .HasColumnType("bit");
 
                     b.Property<DateTime?>("qaEndDate")

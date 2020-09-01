@@ -80,7 +80,7 @@ namespace CapacityManagementAPI.Services
             return pts;
         }
 
-        public DateTime GetEndDate(DateTime projectStartDate, string role, double remPts, ICollection<Allocation> allocations)
+        public DateTime GetEndDate(DateTime projectStartDate, string role, double remPts, ICollection<Allocation> allocations, bool isUpdate)
         {
             IDictionary<int, int> monLen = new Dictionary<int, int>()
             {
@@ -97,7 +97,14 @@ namespace CapacityManagementAPI.Services
                 {11, 29},
                 {12, 30}
             };
-            var date = DateTime.Today;
+
+            var date = projectStartDate;
+            
+            if (isUpdate)
+            {
+                date = DateTime.Today;
+            }
+
             if (DateTime.Compare(projectStartDate, date) > 0)
             {
                 date = projectStartDate;

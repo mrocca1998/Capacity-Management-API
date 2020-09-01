@@ -12,8 +12,10 @@ namespace CapacityManagementAPI.Models
         public double? Allocation1 { get; set; }
         public double? WorkWeight { get; set; }
         public string Role { get; set; }
+        public Boolean isUpdate { get; set; }
 
         public virtual Employee Employee { get; set; }
         public virtual Project Project { get; set; }
+
     }
 }

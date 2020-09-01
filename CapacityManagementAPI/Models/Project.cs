@@ -23,9 +23,7 @@ namespace CapacityManagementAPI.Models
         public DateTime? qaEndDate { get; set; }
         public DateTime? devEndDate { get; set; }
         public DateTime? calcEndDate { get; set; }
-
-        public bool? isShowing { get; set; }
-
+        public Boolean? isUpdate { get; set; }
 
         public virtual ICollection<Allocation> Allocations { get; set; }
     }

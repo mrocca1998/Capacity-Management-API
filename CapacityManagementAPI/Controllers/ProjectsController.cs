@@ -33,9 +33,9 @@ namespace CapacityManagementAPI.Controllers
             for (int runs = 0; runs < projects.Count; runs++)
             {
                 var project = projects[runs];
-                project.baEndDate = this.projectRepo.GetEndDate((DateTime)project.StartDate, "BA", Convert.ToDouble(project.BaPoints), project.Allocations);
-                project.qaEndDate = this.projectRepo.GetEndDate((DateTime)project.StartDate, "QA", Convert.ToDouble(project.QaPoints), project.Allocations);
-                project.devEndDate = this.projectRepo.GetEndDate((DateTime)project.StartDate, "Dev", Convert.ToDouble(project.DevPoints), project.Allocations);
+                project.baEndDate = this.projectRepo.GetEndDate((DateTime)project.StartDate, "BA", Convert.ToDouble(project.BaPoints), project.Allocations, (Boolean)project.isUpdate);
+                project.qaEndDate = this.projectRepo.GetEndDate((DateTime)project.StartDate, "QA", Convert.ToDouble(project.QaPoints), project.Allocations, (Boolean)project.isUpdate);
+                project.devEndDate = this.projectRepo.GetEndDate((DateTime)project.StartDate, "Dev", Convert.ToDouble(project.DevPoints), project.Allocations, (Boolean)project.isUpdate);
                 project.calcEndDate = new[] { project.baEndDate, project.qaEndDate, project.devEndDate }.Max();
 
             }
@@ -81,9 +81,9 @@ namespace CapacityManagementAPI.Controllers
                 return NotFound();
             }
 
-            var baEndDate = projectRepo.GetEndDate((DateTime)project.StartDate, "BA", Convert.ToDouble(project.BaPoints), project.Allocations);
-            var qaEndDate = projectRepo.GetEndDate((DateTime)project.StartDate, "QA", Convert.ToDouble(project.QaPoints), project.Allocations);
-            var devEndDate = projectRepo.GetEndDate((DateTime)project.StartDate, "Dev", Convert.ToDouble(project.DevPoints), project.Allocations);
+            var baEndDate = projectRepo.GetEndDate((DateTime)project.StartDate, "BA", Convert.ToDouble(project.BaPoints), project.Allocations, (Boolean)project.isUpdate);
+            var qaEndDate = projectRepo.GetEndDate((DateTime)project.StartDate, "QA", Convert.ToDouble(project.QaPoints), project.Allocations, (Boolean)project.isUpdate);
+            var devEndDate = projectRepo.GetEndDate((DateTime)project.StartDate, "Dev", Convert.ToDouble(project.DevPoints), project.Allocations, (Boolean)project.isUpdate);
             var projectEndDate = new[] { baEndDate, qaEndDate, devEndDate }.Max();
 
             var points = new Dictionary<string, DateTime>
@@ -182,7 +182,7 @@ namespace CapacityManagementAPI.Controllers
 
             _context.Projects.Add(project);
             await _context.SaveChangesAsync();
-            return "";
+            return project.Id.ToString();
         }
 
         // DELETE: api/Projects/5
