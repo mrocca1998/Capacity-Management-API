@@ -130,7 +130,7 @@ namespace CapacityManagementAPI.Controllers
                     if (DateTime.Compare(date, (DateTime)allocation2.StartDate) >= 0
                             && DateTime.Compare(date, (DateTime)allocation2.EndDate) <= 0
                             && allocation.EmployeeId.Equals(allocation2.EmployeeId)
-                            && allocation.isUpdate.Equals(allocation2.isUpdate)
+                            && allocation.isUpdate == allocation2.isUpdate
                             && id != allocation2.Id)
                     {
                         //add that allocation to the current toal of that employee's allocations for the month and save the allocation id
